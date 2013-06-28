@@ -2,6 +2,9 @@
 # create an input form
 # add a person
 # list people
+require 'rubygems'
+require 'sinatra'
+require 'sinatra/reloader'
 require 'pg'
 require 'pry'
 
@@ -11,9 +14,8 @@ puts "Can I at least get a last name?"
 last_name = gets.chomp
 puts "Well, how old are you?"
 age = gets.chomp
-# get all the inputs
-# put them in the string
-# make it work
+#put 3 variables, just for testing to make sure it works
+#cannot test because I cannot connect to database
 
 # this establishes a connection to the database
 # db = PG.connect(:dbname => 'address_book',
@@ -24,9 +26,10 @@ age = gets.chomp
 # insert into database
 db = PG.connect(:dbname => 'address_book',host => 'localhost')
 
-sql = "insert into contacts (first) values ('#{name}')"
+sql = "insert into contacts (first_name, last_name, age) values ('#{first_name}, #{second_name}, #{age})"
 db.exec(sql)
-sql = "select first, age from contacts"
+sql = "select (first_name, last_name, age from contacts"
+#not sure if parathases are needed
 db.exec(sql) do |result|
   result.each do |row|
     puts row
