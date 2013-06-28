@@ -14,6 +14,7 @@ puts "Can I at least get a last name?"
 last_name = gets.chomp
 puts "Well, how old are you?"
 age = gets.chomp
+puts "I'm adding you to my contacts"
 #put 3 variables, just for testing to make sure it works
 #cannot test because I cannot connect to database
 
@@ -24,19 +25,33 @@ age = gets.chomp
 # passing a string of sql to the database
 
 # insert into database
-db = PG.connect(:dbname => 'address_book',host => 'localhost')
+db = PG.connect(:dbname => 'address_book', :host => 'localhost')
 
-sql = "insert into contacts (first_name, last_name, age) values ('#{first_name}, #{second_name}, #{age})"
+sql = "insert into contacts (first, last, age) values ('#{first}, #{second}, #{age})"
 db.exec(sql)
-sql = "select (first_name, last_name, age from contacts"
-#not sure if parathases are needed
-db.exec(sql) do |result|
-  result.each do |row|
-    puts row
-  end
-end
-# db.close
 db.close
+
+
+get '/' do
+
+  sql = "select (first, last, age) from contacts"
+  #not sure if parathases are needed
+  db.exec(sql) do |result|
+    result.each do |row|
+      @row << row
+    end
+  end
+  erb :contact
+db.close
+
+post '/contacts' do
+  first = params[:first]
+  last = params[:last]
+  age = params[:age]
+  gender = params[:gender]
+  dtgd = params[:dtgd]
+  phone = params[:phone]
+end
 
 # reads from database
 # db = PG.connect(:dbname => 'address_book',

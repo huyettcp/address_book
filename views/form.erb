@@ -3,7 +3,20 @@
 <head>
   <title>Contact Book</title>
 </head>
-<body>
-  <% @contact.each do |line
-</body>
+<h1>Who is the new chick?</h1>
+<form action = "/new_movie" method = "post" autofocus>
+  <input type = "text" name = "first" value = "first">
+  <input type = "text" name = "last" value = "first_name">
+  <input type = "integer" name = "age" value = "age">
+  <input type = "text" name = "gender" value = "gender">
+  <input type = "boolean" name = "dtgd" value = "dtgd">
+  <input type = "text" name = "phone" value = "phone">
+</form>
 </html>
+
+first VARCHAR(25),
+  last  VARCHAR(25),
+  age INT,
+  gender CHAR(1),
+  dtgd  BOOLEAN,
+  phone VARCHAR(12)
